@@ -45,10 +45,16 @@ app.use(sanitizeInput);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 1000 }));
 
 // Basic middleware
-app.use(cors({ 
-  origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'], 
-  credentials: true 
-}));
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      callback(null, origin || true); // allow all origins
+    },
+    credentials: true,
+  })
+);
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json({ limit: '10mb' }));
