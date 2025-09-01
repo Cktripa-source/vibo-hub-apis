@@ -45,8 +45,6 @@ app.use(sanitizeInput);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 1000 }));
 
 // Basic middleware
-const cors = require("cors");
-
 app.use(
   cors({
     origin: (origin, callback) => {
